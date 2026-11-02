@@ -1,0 +1,59 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: image_train_predict_careamics
+description: Train a CAREamics model from a configuration file and use it for prediction.
+keywords:
+  - image restoration
+  - microscopy
+  - deep learning
+  - careamics
+  - training
+  - prediction
+components:
+  - careamics/train
+  - careamics/predict
+input:
+  - ch_train:
+      type: file
+      description: |
+        Training input channel.
+        Structure: [ val(meta), path(careamics_config), path(train_data), path(train_target), path(val_data), path(val_target) ]
+  - ch_predict:
+      type: file
+      description: |
+        Prediction data channel.
+        Structure: [ val(meta), path(data) ]
+output:
+  - checkpoints:
+      type: file
+      description: |
+        All trained model checkpoints.
+        Structure: [ val(meta), path(checkpoints) ]
+      pattern: "checkpoints/*/*.ckpt"
+  - metrics:
+      type: file
+      description: |
+        Training and validation losses and additional logged metrics.
+        Structure: [ val(meta), path(metrics.csv) ]
+      pattern: "csv_logs/*/version_*/metrics.csv"
+  - model:
+      type: file
+      description: |
+        Checkpoint selected for prediction.
+        Structure: [ val(meta), path(model) ]
+      pattern: "checkpoints/*/*.ckpt"
+  - predictions:
+      type: file
+      description: |
+        Prediction output files.
+        Structure: [ val(meta), path(predictions) ]
+      pattern: "predictions/*"
+  - versions:
+      type: string
+      description: |
+        Software version information.
+        Structure: [ val(process), val(tool), val(version) ]
+authors:
+  - "@tatianawoller"
+  - "@melisande-c"
+maintainers:
+  - "@melisande-c"

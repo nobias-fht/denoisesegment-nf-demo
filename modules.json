@@ -2,9 +2,50 @@
     "name": "nobias-fht/denoisesegment",
     "homePage": "https://github.com/nobias-fht/denoisesegment",
     "repos": {
+        "https://github.com/CAREamics/CAREamics_nextflow.git": {
+            "modules": {
+                "careamics": {
+                    "careamics/confign2v": {
+                        "branch": "main",
+                        "git_sha": "db7c68ec814c1a46a721b54f89371a7a77628083",
+                        "installed_by": ["image_train_predict_n2v_careamics"]
+                    },
+                    "careamics/predict": {
+                        "branch": "main",
+                        "git_sha": "db7c68ec814c1a46a721b54f89371a7a77628083",
+                        "installed_by": ["image_train_predict_careamics"]
+                    },
+                    "careamics/train": {
+                        "branch": "main",
+                        "git_sha": "db7c68ec814c1a46a721b54f89371a7a77628083",
+                        "installed_by": ["image_train_predict_careamics"]
+                    }
+                }
+            },
+            "subworkflows": {
+                "careamics": {
+                    "image_train_predict_careamics": {
+                        "branch": "main",
+                        "git_sha": "db7c68ec814c1a46a721b54f89371a7a77628083",
+                        "installed_by": ["image_train_predict_n2v_careamics"]
+                    },
+                    "image_train_predict_n2v_careamics": {
+                        "branch": "main",
+                        "git_sha": "db7c68ec814c1a46a721b54f89371a7a77628083",
+                        "installed_by": ["subworkflows"]
+                    }
+                }
+            }
+        },
         "https://github.com/nf-core/modules.git": {
             "modules": {
-                "nf-core": {}
+                "nf-core": {
+                    "cellpose": {
+                        "branch": "master",
+                        "git_sha": "7b3452a23773f687ededb4befd037920e5a51341",
+                        "installed_by": ["modules"]
+                    }
+                }
             },
             "subworkflows": {
                 "nf-core": {
