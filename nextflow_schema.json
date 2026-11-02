@@ -17,15 +17,93 @@
                     "format": "path",
                     "exists": true,
                     "schema": "assets/schema_input.json",
-                    "description": "Path to comma-separated file containing information about the samples in the experiment.",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row.",
-                    "fa_icon": "fas fa-file-csv"
+                    "description": "A path to a directory containing TIFF images of cells, or a single file.",
+                    "fa_icon": "fas fa-folder"
                 },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
+                }
+            }
+        },
+        "careamics": {
+            "title": "CAREamics",
+            "type": "object",
+            "description": "Parameters relating to running N2V with CAREamics",
+            "default": "",
+            "fa_icon": "fas fa-mug-hot",
+            "properties": {
+                "careamics_val_data": {
+                    "type": "string",
+                    "description": "Path to validation data.",
+                    "format": "path"
+                },
+                "careamics_axes": {
+                    "type": "string",
+                    "description": "Axes of the data, max 4 dimensions from STCZYX.",
+                    "pattern": "^(?!.*(.).*\\1)[STCZYX]{2,4}$"
+                },
+                "careamics_patch_size": {
+                    "type": "string",
+                    "description": "List of patch dimensions, 2D or 3D, e.g. \"64 64 64\" for 3D",
+                    "pattern": "^-?\\d+( -?\\d+){1,2}$"
+                },
+                "careamics_batch_size": {
+                    "type": "integer",
+                    "description": "Training and prediction batch size."
+                },
+                "careamics_num_epochs": {
+                    "type": "integer",
+                    "description": "Number of epochs for which to train."
+                },
+                "careamics_num_steps": {
+                    "type": "integer",
+                    "description": "Number of steps for which to train."
+                },
+                "careamics_augmentations": {
+                    "type": "string",
+                    "pattern": "^(?!.*\\\\b(x_flip|y_flip|rotate_90)\\\\b.*\\\\b\\\\1\\\\b)(?:x_flip|y_flip|rotate_90)(?: (?:x_flip|y_flip|rotate_90)){0,2}$",
+                    "description": "Augmentations to apply during training — space separated list of  \"x_flip\", \"y_flip\", \"rotate_90\"."
+                },
+                "careamics_n_val_patches": {
+                    "type": "integer",
+                    "description": "Number of validation patches (only used if separate validation data is not provided)."
+                },
+                "careamics_use_n2v2": {
+                    "type": "boolean",
+                    "description": "Whether to use n2v2 variant of the n2v algorithm."
+                },
+                "careamics_n_channels": {
+                    "type": "integer",
+                    "description": "Number of channels, required if \"C\" is present in axes."
+                },
+                "careamics_seed": {
+                    "type": "integer",
+                    "description": "Seed for reproducibility"
+                }
+            },
+            "required": ["careamics_axes", "careamics_patch_size", "careamics_batch_size"]
+        },
+        "cellpose": {
+            "title": "Cellpose",
+            "type": "object",
+            "description": "Parameters relating to running Cellpose",
+            "default": "",
+            "fa_icon": "fas fa-disease",
+            "properties": {
+                "cellpose_channel_axis": {
+                    "type": "integer",
+                    "description": "Axis of image which corresponds to image channels. Inferred if not provided."
+                },
+                "cellpose_z_axis": {
+                    "type": "integer",
+                    "description": "Axis of image which corresponds to Z dimension. Inferred if not provided."
+                },
+                "cellpose_do_3D": {
+                    "type": "boolean",
+                    "description": "Use 3D version of algorithm."
                 }
             }
         },
@@ -143,6 +221,12 @@
     "allOf": [
         {
             "$ref": "#/$defs/input_output_options"
+        },
+        {
+            "$ref": "#/$defs/careamics"
+        },
+        {
+            "$ref": "#/$defs/cellpose"
         },
         {
             "$ref": "#/$defs/institutional_config_options"

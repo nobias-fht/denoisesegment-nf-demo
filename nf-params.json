@@ -1,0 +1,9 @@
+{
+    "input": "data/example_data/noisy",
+    "outdir": "results",
+    "careamics_axes": "CYX",
+    "careamics_patch_size": "64 64",
+    "careamics_batch_size": 64,
+    "careamics_num_epochs": 20,
+    "careamics_n_channels": 2
+}
