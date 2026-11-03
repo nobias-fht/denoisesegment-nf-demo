@@ -2,7 +2,9 @@
 
 [![Open in GitHub Codespaces](https://img.shields.io/badge/Open_In_GitHub_Codespaces-black?labelColor=grey&logo=github)](https://github.com/codespaces/new/nobias-fht/denoisesegment)
 [![GitHub Actions CI Status](https://github.com/nobias-fht/denoisesegment/actions/workflows/nf-test.yml/badge.svg)](https://github.com/nobias-fht/denoisesegment/actions/workflows/nf-test.yml)
-[![GitHub Actions Linting Status](https://github.com/nobias-fht/denoisesegment/actions/workflows/linting.yml/badge.svg)](https://github.com/nobias-fht/denoisesegment/actions/workflows/linting.yml)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![GitHub Actions Linting Status](https://github.com/nobias-fht/denoisesegment/actions/workflows/linting.yml/badge.svg)](https://github.com/nobias-fht/denoisesegment/actions/workflows/linting.yml)
+<!-- [![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX) -->
+
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
 
 [![Nextflow](https://img.shields.io/badge/version-%E2%89%A525.10.4-green?style=flat&logo=nextflow&logoColor=white&color=%230DC09D&link=https%3A%2F%2Fnextflow.io)](https://www.nextflow.io/)
@@ -14,52 +16,101 @@
 
 ## Introduction
 
-**nobias-fht/denoisesegment** is a bioinformatics pipeline that ...
+**nobias-fht/denoisesegment** is an image-analysis pipeline that denoises TIFF microscopy images and then produces instance segmentations of cells. It trains a self-supervised [Noise2Void (N2V)](https://careamics.github.io/) model with CAREamics on the supplied images, applies the trained model to those images, and passes each denoised TIFF to [Cellpose](https://www.cellpose.org/) to generate labelled segmentation masks.
 
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
+```mermaid
+flowchart LR
+    images[/TIFF image or directory/]:::input
+    val[/Optional validation image or directory/]:::input
+    config_params[/Axes, patch size, batch size<br/>and optional N2V settings/]:::input
+    cellpose_params[/Optional Cellpose settings/]:::input
 
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/community/brand/workflow-schematics#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
+    subgraph n2v[IMAGE_TRAIN_PREDICT_N2V_CAREAMICS subworkflow]
+        config[CAREAMICS_CONFIGN2V]
+        subgraph train_predict[IMAGE_TRAIN_PREDICT_CAREAMICS subworkflow]
+            train[CAREAMICS_TRAIN]
+            predict[CAREAMICS_PREDICT]
+        end
+        config -->|careamics.yaml| train
+        train -->|selected checkpoint| predict
+    end
+
+    config_params --> config
+    images -->|training data| train
+    val -.->|validation data| train
+    images -->|prediction data| predict
+    train --> checkpoints[(Model checkpoints)]:::output
+    train --> metrics[(Training metrics)]:::output
+    predict --> denoised[(Denoised TIFF images)]:::output
+    denoised --> cellpose[CELLPOSE]
+    cellpose_params --> cellpose
+    cellpose --> masks[(Labelled mask TIFFs)]:::output
+
+    classDef input fill:#fff4dd,stroke:#d89b29,color:#111;
+    classDef output fill:#e8f5e9,stroke:#43a047,color:#111;
+```
+
+The default analysis steps are:
+
+1. Create an N2V configuration from the required CAREamics parameters.
+2. Train CAREamics on the input TIFF data, optionally using separate validation data.
+3. Select the checkpoint recorded by CAREamics and use it to denoise the input data.
+4. Run Cellpose independently on each denoised image and publish the labelled masks.
+
+The main inputs and outputs are described in more detail in the [usage](docs/usage.md) and [output](docs/output.md) documentation.
 
 ## Usage
 
 > [!NOTE]
-> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/get_started/environment_setup/overview) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/get_started/run-your-first-pipeline) with `-profile test` before running the workflow on actual data.
+> If you are new to Nextflow and nf-core, please refer to the [nf-core environment setup documentation](https://nf-co.re/docs/get_started/environment_setup/overview) before running the workflow.
 
-<!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.
-     Explain what rows and columns represent. For instance (please edit as appropriate):
-
-First, prepare a samplesheet with your input data that looks as follows:
-
-`samplesheet.csv`:
-
-```csv
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-```
-
-Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
-
--->
-
-Now, you can run the pipeline using:
-
-<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
+Provide `--input` as either one TIFF file or a directory containing TIFF images. You must also describe the image axes and choose the spatial patch size and batch size used by CAREamics. For example:
 
 ```bash
 nextflow run nobias-fht/denoisesegment \
    -profile <docker/singularity/.../institute> \
-   --input samplesheet.csv \
-   --outdir <OUTDIR>
+   --input path/to/images \
+   --outdir <OUTDIR> \
+   --careamics_axes CYX \
+   --careamics_patch_size "64 64" \
+   --careamics_batch_size 64 \
+   --careamics_n_channels 2
+```
+
+You can also use the nf-core launcher to more easily select parameters with:
+
+```bash
+nf-core pipelines launch nobias-fht/denoisesegment
 ```
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/running/run-pipelines#using-parameter-files).
+
+## Example data
+
+Example data is available using the download script in [this GitHub gist](https://gist.github.com/melisande-c/bc2d3abe95eb8e66725e03e22e31eec0).
+
+Using `uv`, this can be run directly from GitHub with:
+
+```bash
+uv run https://gist.githubusercontent.com/melisande-c/bc2d3abe95eb8e66725e03e22e31eec0/raw/919580897df22b44da6663173dca15ab55b979a8/download_example_jump.py
+```
+
+This downloads 10 two-channel images to `./data/example-jump` in the directory from which the script is run. The images have `CYX` axes, so `--careamics_n_channels 2` is required. A patch size of `64 64`, a batch size of `64`, and 20 training epochs are suggested for this small demonstration dataset:
+
+```bash
+nextflow run nobias-fht/denoisesegment \
+   -profile docker \
+   --input ./data/example-jump \
+   --outdir ./results \
+   --careamics_axes CYX \
+   --careamics_n_channels 2 \
+   --careamics_patch_size "64 64" \
+   --careamics_batch_size 64 \
+   --careamics_num_epochs 20
+```
+
+See the [usage documentation](docs/usage.md) for parameter-file and GPU-profile examples.
 
 ## Credits
 

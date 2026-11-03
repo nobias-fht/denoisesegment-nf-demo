@@ -4,61 +4,68 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
+The pipeline accepts TIFF microscopy data, trains a CAREamics Noise2Void (N2V) model, denoises the supplied data, and segments every denoised image with Cellpose. Pipeline parameters are validated against [`nextflow_schema.json`](../nextflow_schema.json); use `--help` or `--help_full` to see the generated parameter reference.
 
-## Samplesheet input
+## Image input
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+Set `--input` to either a single TIFF image or a directory containing TIFF images. The same input is used to train the self-supervised N2V model and to generate the denoised images that are passed to Cellpose.
 
 ```bash
---input '[path to samplesheet file]'
+--input /path/to/images
 ```
 
-### Multiple runs of the same sample
+You can optionally provide a separate TIFF image or directory for validation with `--careamics_val_data`. No samplesheet is used.
 
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate the raw reads before performing any downstream analysis. Below is an example for the same sample sequenced across 3 lanes:
+## Required CAREamics parameters
 
-```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
-```
+In addition to `--input` and `--outdir`, every run must set:
 
-### Full samplesheet
+- `--careamics_axes`: the order of the data dimensions, using two to four unique letters from `STCZYX` (for example, `CYX` for channels, Y, X).
+- `--careamics_patch_size`: the two- or three-dimensional spatial patch size as a quoted, space-separated value (for example, `"64 64"`).
+- `--careamics_batch_size`: the batch size written to the generated CAREamics configuration.
 
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
-
-A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 6 samples, where `TREATMENT_REP3` has been sequenced twice.
-
-```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-TREATMENT_REP1,AEG588A4_S4_L003_R1_001.fastq.gz,
-TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
-```
-
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fastq_1` | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-| `fastq_2` | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-
-An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+When `C` occurs in `--careamics_axes`, also provide `--careamics_n_channels` so CAREamics knows how many channels are present. Other CAREamics and Cellpose settings are optional and are listed by `--help_full`.
 
 ## Running the pipeline
 
-The typical command for running the pipeline is as follows:
+The typical command for two-channel, two-dimensional images is:
 
 ```bash
-nextflow run nobias-fht/denoisesegment --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker
+nextflow run nobias-fht/denoisesegment \
+   -profile docker \
+   --input /path/to/images \
+   --outdir ./results \
+   --careamics_axes CYX \
+   --careamics_n_channels 2 \
+   --careamics_patch_size "64 64" \
+   --careamics_batch_size 64
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
+
+Add `gpu` to the profile list (for example, `-profile docker,gpu`) to expose an available GPU to the containers and request one for Cellpose. The executor must be configured to provide the requested GPU resource.
+
+## Example data
+
+The download script in [this GitHub gist](https://gist.github.com/melisande-c/bc2d3abe95eb8e66725e03e22e31eec0) provides a small demonstration dataset. With [`uv`](https://docs.astral.sh/uv/), run:
+
+```bash
+uv run https://gist.githubusercontent.com/melisande-c/bc2d3abe95eb8e66725e03e22e31eec0/raw/919580897df22b44da6663173dca15ab55b979a8/download_example_jump.py
+```
+
+The script downloads 10 two-channel images to `./data/example-jump`. These images require `--careamics_axes CYX` and `--careamics_n_channels 2`. For this small dataset, use a `64 64` patch size and a batch size of `64`; 20 epochs are suggested for a useful demonstration run:
+
+```bash
+nextflow run nobias-fht/denoisesegment \
+   -profile docker \
+   --input ./data/example-jump \
+   --outdir ./results \
+   --careamics_axes CYX \
+   --careamics_n_channels 2 \
+   --careamics_patch_size "64 64" \
+   --careamics_batch_size 64 \
+   --careamics_num_epochs 20
+```
 
 Note that the pipeline will create the following files in your working directory:
 
@@ -85,10 +92,13 @@ nextflow run nobias-fht/denoisesegment -profile docker -params-file params.yaml
 with:
 
 ```yaml title="params.yaml"
-input: './samplesheet.csv'
-outdir: './results/'
-genome: 'GRCh37'
-<...>
+input: "./data/example-jump"
+outdir: "./results/"
+careamics_axes: "CYX"
+careamics_n_channels: 2
+careamics_patch_size: "64 64"
+careamics_batch_size: 64
+careamics_num_epochs: 20
 ```
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
@@ -136,8 +146,7 @@ They are loaded in sequence, so later profiles can overwrite earlier profiles.
 If `-profile` is not specified, the pipeline will run locally and expect all software to be installed and available on the `PATH`. This is _not_ recommended, since it can lead to different results on different machines dependent on the computer environment.
 
 - `test`
-  - A profile with a complete configuration for automated testing
-  - Includes links to test data so needs no other parameters
+  - A template development profile; use the [example-data command](#example-data) for a configured demonstration run
 - `docker`
   - A generic configuration profile to be used with [Docker](https://docker.com/)
 - `singularity`

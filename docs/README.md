@@ -3,6 +3,6 @@
 The nobias-fht/denoisesegment documentation is split into the following pages:
 
 - [Usage](usage.md)
-  - An overview of how the pipeline works, how to run it and a description of all of the different command-line flags.
+  - How to provide TIFF input data, configure CAREamics and Cellpose, run the example dataset, and launch the pipeline.
 - [Output](output.md)
-  - An overview of the different results produced by the pipeline and how to interpret them.
+  - An overview of the denoised images, training artefacts, segmentation masks, and execution reports produced by the pipeline.
