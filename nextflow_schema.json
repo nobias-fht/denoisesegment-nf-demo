@@ -82,6 +82,20 @@
                 "careamics_seed": {
                     "type": "integer",
                     "description": "Seed for reproducibility"
+                },
+                "careamics_pred_batch_size": {
+                    "type": "integer",
+                    "description": "Prediction batch size, `careamics_batch_size` if not specified"
+                },
+                "careamics_pred_tile_size": {
+                    "type": "string",
+                    "description": "List of tile dimensions, 2D or 3D, e.g. \"64 64 64\" for 3D",
+                    "pattern": "^-?\\d+( -?\\d+){1,2}$"
+                },
+                "careamics_pred_tile_overlap": {
+                    "type": "string",
+                    "description": "List of tile overlap dimensions, 2D or 3D, e.g. \"48 48 48\" for 3D",
+                    "pattern": "^-?\\d+( -?\\d+){1,2}$"
                 }
             },
             "required": ["careamics_axes", "careamics_patch_size", "careamics_batch_size"]
