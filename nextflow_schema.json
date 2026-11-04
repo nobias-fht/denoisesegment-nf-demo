@@ -16,7 +16,6 @@
                     "type": "string",
                     "format": "path",
                     "exists": true,
-                    "schema": "assets/schema_input.json",
                     "description": "A path to a directory containing TIFF images of cells, or a single file.",
                     "fa_icon": "fas fa-folder"
                 },
