@@ -28,7 +28,7 @@ NAMED WORKFLOWS FOR PIPELINE
 //
 workflow NOBIASFHT_DENOISESEGMENT {
     take:
-    input // channel: samplesheet read in from --input
+    input // path to a TIFF image or directory supplied with --input
 
     main:
 
@@ -61,7 +61,6 @@ workflow {
         params.monochrome_logs,
         args,
         params.outdir,
-        params.input,
         params.help,
         params.help_full,
         params.show_hidden,
