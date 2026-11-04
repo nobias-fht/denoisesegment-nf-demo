@@ -159,4 +159,8 @@ If you update images or graphics, follow the nf-core [style guidelines](https://
 
 ## Pipeline specific contribution guidelines
 
-<!-- TODO nf-core: Add any pipeline specific contribution guidelines here, such as coding styles, procedures, checklists etc. -->
+- Keep pipeline parameters in `nextflow_schema.json` and document user-visible behaviour in `docs/usage.md` or `docs/output.md`.
+- Use TIFF microscopy data for pipeline and component tests. The pipeline accepts a TIFF file or directory directly; it does not use a samplesheet.
+- Add or update nf-test coverage when changing a module, subworkflow, or published output.
+- Keep tool-specific command construction inside the relevant module or its `conf/modules.config` selector.
+- Before opening a pull request, run the pre-commit hooks and the smallest relevant nf-test target. Use the bundled `test` profile for an end-to-end check when workflow wiring changes.
