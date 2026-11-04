@@ -3,9 +3,7 @@
 IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-include { paramsSummaryMap                  } from 'plugin/nf-schema'
 include { softwareVersionsToYAML            } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText            } from '../subworkflows/local/utils_nfcore_denoisesegment_pipeline'
 include { IMAGE_TRAIN_PREDICT_N2V_CAREAMICS } from '../subworkflows/careamics/image_train_predict_n2v_careamics/main'
 include { CELLPOSE                          } from '../modules/nf-core/cellpose/main'
 
