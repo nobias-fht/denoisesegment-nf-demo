@@ -36,7 +36,7 @@ template:
   name: denoisesegment
   description: An image-analysis pipeline for Noise2Void denoising with CAREamics and instance segmentation with Cellpose.
   author: Melisande Croft
-  version: 1.0.0
+  version: 1.0.0dev
   force: true
   outdir: .
   skip_features:
