@@ -31,7 +31,7 @@ When `C` occurs in `--careamics_axes`, also provide `--careamics_n_channels` so 
 The typical command for two-channel, two-dimensional images is:
 
 ```bash
-nextflow run nobias-fht/denoisesegment \
+nextflow run nobias-fht/denoisesegment-nf-demo \
    -profile docker \
    --input /path/to/images \
    --outdir ./results \
@@ -56,7 +56,7 @@ uv run https://gist.githubusercontent.com/melisande-c/bc2d3abe95eb8e66725e03e22e
 The script downloads 10 two-channel images to `./data/example-jump`. These images require `--careamics_axes CYX` and `--careamics_n_channels 2`. For this small dataset, use a `64 64` patch size and a batch size of `64`; 20 epochs are suggested for a useful demonstration run:
 
 ```bash
-nextflow run nobias-fht/denoisesegment \
+nextflow run nobias-fht/denoisesegment-nf-demo \
    -profile docker \
    --input ./data/example-jump \
    --outdir ./results \
@@ -86,7 +86,7 @@ Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <
 The above pipeline run specified with a params file in yaml format:
 
 ```bash
-nextflow run nobias-fht/denoisesegment -profile docker -params-file params.yaml
+nextflow run nobias-fht/denoisesegment-nf-demo -profile docker -params-file params.yaml
 ```
 
 with:
@@ -108,14 +108,14 @@ You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-c
 When you run the above command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:
 
 ```bash
-nextflow pull nobias-fht/denoisesegment
+nextflow pull nobias-fht/denoisesegment-nf-demo
 ```
 
 ### Reproducibility
 
 It is a good idea to specify the pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
 
-First, go to the [nobias-fht/denoisesegment releases page](https://github.com/nobias-fht/denoisesegment/releases) and find the latest pipeline version - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`. Of course, you can switch to another version by changing the number after the `-r` flag.
+First, go to the [nobias-fht/denoisesegment releases page](https://github.com/nobias-fht/denoisesegment-nf-demo/releases) and find the latest pipeline version - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`. Of course, you can switch to another version by changing the number after the `-r` flag.
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future.
 

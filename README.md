@@ -1,8 +1,8 @@
 # nobias-fht/denoisesegment
 
-[![Open in GitHub Codespaces](https://img.shields.io/badge/Open_In_GitHub_Codespaces-black?labelColor=grey&logo=github)](https://github.com/codespaces/new/nobias-fht/denoisesegment)
-[![GitHub Actions CI Status](https://github.com/nobias-fht/denoisesegment/actions/workflows/nf-test.yml/badge.svg)](https://github.com/nobias-fht/denoisesegment/actions/workflows/nf-test.yml)
-[![GitHub Actions Linting Status](https://github.com/nobias-fht/denoisesegment/actions/workflows/linting.yml/badge.svg)](https://github.com/nobias-fht/denoisesegment/actions/workflows/linting.yml)
+[![Open in GitHub Codespaces](https://img.shields.io/badge/Open_In_GitHub_Codespaces-black?labelColor=grey&logo=github)](https://github.com/codespaces/new/nobias-fht/denoisesegment-nf-demo)
+[![GitHub Actions CI Status](https://github.com/nobias-fht/denoisesegment-nf-demo/actions/workflows/nf-test.yml/badge.svg)](https://github.com/nobias-fht/denoisesegment-nf-demo/actions/workflows/nf-test.yml)
+[![GitHub Actions Linting Status](https://github.com/nobias-fht/denoisesegment-nf-demo/actions/workflows/linting.yml/badge.svg)](https://github.com/nobias-fht/denoisesegment-nf-demo/actions/workflows/linting.yml)
 <!-- [![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX) -->
 
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
@@ -12,7 +12,7 @@
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
-[![Launch on Seqera Platform](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Seqera%20Platform-%234256e7)](https://cloud.seqera.io/launch?pipeline=https://github.com/nobias-fht/denoisesegment)
+[![Launch on Seqera Platform](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Seqera%20Platform-%234256e7)](https://cloud.seqera.io/launch?pipeline=https://github.com/nobias-fht/denoisesegment-nf-demo)
 
 ## Introduction
 
@@ -67,7 +67,7 @@ The main inputs and outputs are described in more detail in the [usage](docs/usa
 Provide `--input` as either one TIFF file or a directory containing TIFF images. You must also describe the image axes and choose the spatial patch size and batch size used by CAREamics. For example:
 
 ```bash
-nextflow run nobias-fht/denoisesegment \
+nextflow run nobias-fht/denoisesegment-nf-demo \
    -profile <docker/singularity/.../institute> \
    --input path/to/images \
    --outdir <OUTDIR> \
@@ -80,7 +80,7 @@ nextflow run nobias-fht/denoisesegment \
 You can also use the nf-core launcher to more easily select parameters with:
 
 ```bash
-nf-core pipelines launch nobias-fht/denoisesegment
+nf-core pipelines launch nobias-fht/denoisesegment-nf-demo
 ```
 
 > [!WARNING]
@@ -99,7 +99,7 @@ uv run https://gist.githubusercontent.com/melisande-c/bc2d3abe95eb8e66725e03e22e
 This downloads 10 two-channel images to `./data/example-jump` in the directory from which the script is run. The images have `CYX` axes, so `--careamics_n_channels 2` is required. A patch size of `64 64`, a batch size of `64`, and 20 training epochs are suggested for this small demonstration dataset:
 
 ```bash
-nextflow run nobias-fht/denoisesegment \
+nextflow run nobias-fht/denoisesegment-nf-demo \
    -profile docker \
    --input ./data/example-jump \
    --outdir ./results \

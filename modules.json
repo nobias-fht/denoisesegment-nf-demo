@@ -1,6 +1,6 @@
 {
     "name": "nobias-fht/denoisesegment",
-    "homePage": "https://github.com/nobias-fht/denoisesegment",
+    "homePage": "https://github.com/nobias-fht/denoisesegment-nf-demo",
     "repos": {
         "https://github.com/CAREamics/CAREamics_nextflow.git": {
             "modules": {
