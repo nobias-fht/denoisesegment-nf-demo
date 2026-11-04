@@ -50,7 +50,8 @@ workflow DENOISESEGMENT {
     IMAGE_TRAIN_PREDICT_N2V_CAREAMICS(ch_config, ch_training, ch_prediction_data)
 
     ch_n2v_preds = IMAGE_TRAIN_PREDICT_N2V_CAREAMICS.out.predictions.flatMap { careamics_meta, files ->
-        files.collect { file ->
+        def predictions = files instanceof List ? files : [files]
+        predictions.collect { file ->
             tuple(
                 careamics_meta + [id: "${file.baseName}"],
                 file
