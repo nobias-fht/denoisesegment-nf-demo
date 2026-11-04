@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nobias-fht/denoisesegment-nf-demo/master/nextflow_schema.json",
     "title": "nobias-fht/denoisesegment pipeline parameters",
-    "description": "A demo pipeline that applies n2v followed by cellpose.",
+    "description": "An image-analysis pipeline for Noise2Void denoising with CAREamics and instance segmentation with Cellpose.",
     "type": "object",
     "$defs": {
         "input_output_options": {

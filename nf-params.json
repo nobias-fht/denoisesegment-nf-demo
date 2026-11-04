@@ -1,9 +1,12 @@
 {
-    "input": "data/example_data/noisy",
+    "input": "https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/imaging/segmentation/nuclear_image.tif",
     "outdir": "results",
-    "careamics_axes": "CYX",
+    "careamics_axes": "YX",
     "careamics_patch_size": "64 64",
-    "careamics_batch_size": 64,
-    "careamics_num_epochs": 20,
-    "careamics_n_channels": 2
+    "careamics_batch_size": 4,
+    "careamics_num_epochs": 1,
+    "careamics_num_steps": 2,
+    "careamics_n_val_patches": 1,
+    "careamics_seed": 42,
+    "careamics_pred_tile_size": "64 64"
 }
