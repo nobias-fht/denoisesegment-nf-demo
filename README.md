@@ -63,6 +63,9 @@ The main inputs and outputs are described in more detail in the [usage](docs/usa
 
 Provide `--input` as either one TIFF file or a directory containing TIFF images. You must also describe the image axes and choose the spatial patch size and batch size used by CAREamics. For example:
 
+> [!WARNING]
+> In 2D mode, Cellpose 4.0.9 always interprets a four-dimensional image as a batch in `N,Y,X,C` order. Images with a time (`T`) or sample (`S`) batch axis therefore work when ordered `TYXC` or `SYXC`, but `TCYX` and `SCYX` images are misread because the final `X` dimension is treated as channels. Setting the pipeline's `--cellpose_channel_axis` option (Cellpose's `--channel_axis`) does not work around this Cellpose 4.0.9 bug. Reorder batched images to `TYXC` or `SYXC` before running the pipeline.
+
 ```bash
 nextflow run nobias-fht/denoisesegment-nf-demo \
    -profile <docker/singularity/.../institute> \

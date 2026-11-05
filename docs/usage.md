@@ -26,6 +26,9 @@ In addition to `--input` and `--outdir`, every run must set:
 
 When `C` occurs in `--careamics_axes`, also provide `--careamics_n_channels` so CAREamics knows how many channels are present. Other CAREamics and Cellpose settings are optional and are listed by `--help_full`.
 
+> [!WARNING]
+> In 2D mode, Cellpose 4.0.9 always interprets a four-dimensional image as a batch in `N,Y,X,C` order. Images with a time (`T`) or sample (`S`) batch axis therefore work when ordered `TYXC` or `SYXC`, but `TCYX` and `SCYX` images are misread because the final `X` dimension is treated as channels. Setting the pipeline's `--cellpose_channel_axis` option (Cellpose's `--channel_axis`) does not work around this Cellpose 4.0.9 bug. Reorder batched images to `TYXC` or `SYXC` before running the pipeline.
+
 ## Running the pipeline
 
 The typical command for two-channel, two-dimensional images is:
