@@ -10,6 +10,18 @@
 
 ## Pipeline tools
 
+### [CAREamics](https://github.com/CAREamics/careamics)
+
+CAREamics provides the PyTorch implementation used to configure, train, and apply the Noise2Void model.
+
+### [Noise2Void](https://doi.org/10.1109/CVPR.2019.00223)
+
+> Krull A, Buchholz TO, Jug F. Noise2Void - Learning Denoising From Single Noisy Images. Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019:2129-2137. doi: 10.1109/CVPR.2019.00223.
+
+### [Cellpose](https://doi.org/10.1038/s41592-022-01663-4)
+
+> Pachitariu M, Stringer C. Cellpose 2.0: how to train your own model. Nat Methods. 2022;19:1634-1641. doi: 10.1038/s41592-022-01663-4.
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)

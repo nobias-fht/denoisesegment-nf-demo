@@ -14,6 +14,7 @@ lint:
     - assets/email_template.txt
     - docs/README.md
     - .prettierignore
+    - .github/workflows/branch.yml
   nextflow_config:
     - manifest.name
     - manifest.homePage
@@ -34,9 +35,9 @@ lint:
 template:
   org: nobias-fht
   name: denoisesegment
-  description: A demo pipeline that applies n2v followed by cellpose.
+  description: An image-analysis pipeline for Noise2Void denoising with CAREamics and instance segmentation with Cellpose.
   author: Melisande Croft
-  version: 1.0.0dev
+  version: 1.0.0
   force: true
   outdir: .
   skip_features:

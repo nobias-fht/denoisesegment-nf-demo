@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this pipeline, please cite it using the metadata below."
+title: "nobias-fht/denoisesegment"
+type: software
+version: "1.0.0"
+date-released: 2026-11-04
+license: MIT
+repository-code: "https://github.com/nobias-fht/denoisesegment-nf-demo"
+url: "https://github.com/nobias-fht/denoisesegment-nf-demo"
+authors:
+  - family-names: Croft
+    given-names: Melisande
+    orcid: "https://orcid.org/0009-0004-8184-683X"

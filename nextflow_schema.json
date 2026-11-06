@@ -1,8 +1,8 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/nobias-fht/denoisesegment/master/nextflow_schema.json",
+    "$id": "https://raw.githubusercontent.com/nobias-fht/denoisesegment-nf-demo/master/nextflow_schema.json",
     "title": "nobias-fht/denoisesegment pipeline parameters",
-    "description": "A demo pipeline that applies n2v followed by cellpose.",
+    "description": "An image-analysis pipeline for Noise2Void denoising with CAREamics and instance segmentation with Cellpose.",
     "type": "object",
     "$defs": {
         "input_output_options": {
@@ -16,7 +16,6 @@
                     "type": "string",
                     "format": "path",
                     "exists": true,
-                    "schema": "assets/schema_input.json",
                     "description": "A path to a directory containing TIFF images of cells, or a single file.",
                     "fa_icon": "fas fa-folder"
                 },
@@ -38,7 +37,8 @@
                 "careamics_val_data": {
                     "type": "string",
                     "description": "Path to validation data.",
-                    "format": "path"
+                    "format": "path",
+                    "exists": true
                 },
                 "careamics_axes": {
                     "type": "string",
@@ -48,19 +48,22 @@
                 "careamics_patch_size": {
                     "type": "string",
                     "description": "List of patch dimensions, 2D or 3D, e.g. \"64 64 64\" for 3D",
-                    "pattern": "^-?\\d+( -?\\d+){1,2}$"
+                    "pattern": "^[1-9]\\d*( [1-9]\\d*){1,2}$"
                 },
                 "careamics_batch_size": {
                     "type": "integer",
-                    "description": "Training and prediction batch size."
+                    "description": "Training and prediction batch size.",
+                    "minimum": 1
                 },
                 "careamics_num_epochs": {
                     "type": "integer",
-                    "description": "Number of epochs for which to train."
+                    "description": "Number of epochs for which to train.",
+                    "minimum": 1
                 },
                 "careamics_num_steps": {
                     "type": "integer",
-                    "description": "Number of steps for which to train."
+                    "description": "Number of steps for which to train.",
+                    "minimum": 1
                 },
                 "careamics_augmentations": {
                     "type": "string",
@@ -69,7 +72,8 @@
                 },
                 "careamics_n_val_patches": {
                     "type": "integer",
-                    "description": "Number of validation patches (only used if separate validation data is not provided)."
+                    "description": "Number of validation patches (only used if separate validation data is not provided).",
+                    "minimum": 1
                 },
                 "careamics_use_n2v2": {
                     "type": "boolean",
@@ -77,25 +81,28 @@
                 },
                 "careamics_n_channels": {
                     "type": "integer",
-                    "description": "Number of channels, required if \"C\" is present in axes."
+                    "description": "Number of channels, required if \"C\" is present in axes.",
+                    "minimum": 1
                 },
                 "careamics_seed": {
                     "type": "integer",
-                    "description": "Seed for reproducibility"
+                    "description": "Seed for reproducibility.",
+                    "minimum": 0
                 },
                 "careamics_pred_batch_size": {
                     "type": "integer",
-                    "description": "Prediction batch size, `careamics_batch_size` if not specified"
+                    "description": "Prediction batch size, `careamics_batch_size` if not specified.",
+                    "minimum": 1
                 },
                 "careamics_pred_tile_size": {
                     "type": "string",
                     "description": "List of tile dimensions, 2D or 3D, e.g. \"64 64 64\" for 3D",
-                    "pattern": "^-?\\d+( -?\\d+){1,2}$"
+                    "pattern": "^[1-9]\\d*( [1-9]\\d*){1,2}$"
                 },
                 "careamics_pred_tile_overlap": {
                     "type": "string",
                     "description": "List of tile overlap dimensions, 2D or 3D, e.g. \"48 48 48\" for 3D",
-                    "pattern": "^-?\\d+( -?\\d+){1,2}$"
+                    "pattern": "^\\d+( \\d+){1,2}$"
                 }
             },
             "required": ["careamics_axes", "careamics_patch_size", "careamics_batch_size"]

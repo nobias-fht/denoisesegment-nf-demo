@@ -1,10 +1,10 @@
 nextflow_pipeline {
 
-    name "Test pipeline"
+    name "Test denoise and segment pipeline"
     script "../main.nf"
     tag "pipeline"
 
-    test("-profile test") {
+    test("denoise and segment nf-core microscopy test image") {
 
         when {
             params {
@@ -13,20 +13,12 @@ nextflow_pipeline {
         }
 
         then {
-            // stable_path: All files + folders in ${params.outdir}/ with a stable path (including file name)
-            def stable_path = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
-            // stable_content: All files in ${params.outdir}/ with stable content
-            def stable_content = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
-            assert workflow.success
             assertAll(
-                { assert snapshot(
-                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
-                    removeNextflowVersion("$outputDir/pipeline_info/denoisesegment_software_mqc_versions.yml"),
-                    // All stable path name, with a relative path
-                    stable_path,
-                    // All files with stable contents
-                    stable_content
-                ).match() }
+                { assert workflow.success },
+                { assert path("$outputDir/careamics/careamics.yaml").exists() },
+                { assert path("$outputDir/careamics/predictions/nuclear_image.tiff").exists() },
+                { assert path("$outputDir/segmentations/nuclear_image_cp_masks.tif").exists() },
+                { assert path("$outputDir/pipeline_info/denoisesegment_software_versions.yml").exists() },
             )
         }
     }

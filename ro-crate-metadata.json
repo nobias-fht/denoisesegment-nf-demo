@@ -15,21 +15,24 @@
                     "@id": "https://w3id.org/ro/wftest/0.2"
                 }
             ],
-            "creativeWorkStatus": "InProgress",
-            "datePublished": "2026-11-02T14:10:14+00:00",
-            "description": "# nobias-fht/denoisesegment\n\n[![Open in GitHub Codespaces](https://img.shields.io/badge/Open_In_GitHub_Codespaces-black?labelColor=grey&logo=github)](https://github.com/codespaces/new/nobias-fht/denoisesegment)\n[![GitHub Actions CI Status](https://github.com/nobias-fht/denoisesegment/actions/workflows/nf-test.yml/badge.svg)](https://github.com/nobias-fht/denoisesegment/actions/workflows/nf-test.yml)\n[![GitHub Actions Linting Status](https://github.com/nobias-fht/denoisesegment/actions/workflows/linting.yml/badge.svg)](https://github.com/nobias-fht/denoisesegment/actions/workflows/linting.yml)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)\n[![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)\n\n[![Nextflow](https://img.shields.io/badge/version-%E2%89%A525.10.4-green?style=flat&logo=nextflow&logoColor=white&color=%230DC09D&link=https%3A%2F%2Fnextflow.io)](https://www.nextflow.io/)\n[![nf-core template version](https://img.shields.io/badge/nf--core_template-4.2.1-green?style=flat&logo=nfcore&logoColor=white&color=%2324B064&link=https%3A%2F%2Fnf-co.re)](https://github.com/nf-core/tools/releases/tag/4.2.1)\n[![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)\n[![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)\n[![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)\n[![Launch on Seqera Platform](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Seqera%20Platform-%234256e7)](https://cloud.seqera.io/launch?pipeline=https://github.com/nobias-fht/denoisesegment)\n\n## Introduction\n\n**nobias-fht/denoisesegment** is a bioinformatics pipeline that ...\n\n<!-- TODO nf-core:\n   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the\n   major pipeline sections and the types of output it produces. You're giving an overview to someone new\n   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction\n-->\n\n<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core\n     workflows use the \"tube map\" design for that. See https://nf-co.re/docs/community/brand/workflow-schematics#examples for examples.   -->\n<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->\n\n## Usage\n\n> [!NOTE]\n> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/get_started/environment_setup/overview) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/get_started/run-your-first-pipeline) with `-profile test` before running the workflow on actual data.\n\n<!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.\n     Explain what rows and columns represent. For instance (please edit as appropriate):\n\nFirst, prepare a samplesheet with your input data that looks as follows:\n\n`samplesheet.csv`:\n\n```csv\nsample,fastq_1,fastq_2\nCONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz\n```\n\nEach row represents a fastq file (single-end) or a pair of fastq files (paired end).\n\n-->\n\nNow, you can run the pipeline using:\n\n<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->\n\n```bash\nnextflow run nobias-fht/denoisesegment \\\n   -profile <docker/singularity/.../institute> \\\n   --input samplesheet.csv \\\n   --outdir <OUTDIR>\n```\n\n> [!WARNING]\n> Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/running/run-pipelines#using-parameter-files).\n\n## Credits\n\nnobias-fht/denoisesegment was originally written by Melisande Croft.\n\nWe thank the following people for their extensive assistance in the development of this pipeline:\n\n<!-- TODO nf-core: If applicable, make list of people who have also contributed -->\n\n## Contributions and Support\n\nIf you would like to contribute to this pipeline, please see the [contributing guidelines](docs/CONTRIBUTING.md).\n\n## Citations\n\n<!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->\n<!-- If you use nobias-fht/denoisesegment for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->\n\n<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->\n\nAn extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.\n\nThis pipeline uses code and infrastructure developed and maintained by the [nf-core](https://nf-co.re) community, reused here under the [MIT license](https://github.com/nf-core/tools/blob/main/LICENSE).\n\n> **The nf-core framework for community-curated bioinformatics pipelines.**\n>\n> Philip Ewels, Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Alneberg, Andreas Wilm, Maxime Ulysse Garcia, Paolo Di Tommaso & Sven Nahnsen.\n>\n> _Nat Biotechnol._ 2020 Feb 13. doi: [10.1038/s41587-020-0439-x](https://dx.doi.org/10.1038/s41587-020-0439-x).\n",
+            "creativeWorkStatus": "Stable",
+            "datePublished": "2026-11-04T15:54:06+00:00",
+            "description": "# nobias-fht/denoisesegment\n\n[![Open in GitHub Codespaces](https://img.shields.io/badge/Open_In_GitHub_Codespaces-black?labelColor=grey&logo=github)](https://github.com/codespaces/new/nobias-fht/denoisesegment-nf-demo)\n[![GitHub Actions CI Status](https://github.com/nobias-fht/denoisesegment-nf-demo/actions/workflows/nf-test.yml/badge.svg)](https://github.com/nobias-fht/denoisesegment-nf-demo/actions/workflows/nf-test.yml)\n[![GitHub Actions Linting Status](https://github.com/nobias-fht/denoisesegment-nf-demo/actions/workflows/linting.yml/badge.svg)](https://github.com/nobias-fht/denoisesegment-nf-demo/actions/workflows/linting.yml)\n[![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)\n\n[![Nextflow](https://img.shields.io/badge/version-%E2%89%A525.10.4-green?style=flat&logo=nextflow&logoColor=white&color=%230DC09D&link=https%3A%2F%2Fnextflow.io)](https://www.nextflow.io/)\n[![nf-core template version](https://img.shields.io/badge/nf--core_template-4.2.1-green?style=flat&logo=nfcore&logoColor=white&color=%2324B064&link=https%3A%2F%2Fnf-co.re)](https://github.com/nf-core/tools/releases/tag/4.2.1)\n[![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)\n[![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)\n[![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)\n[![Launch on Seqera Platform](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Seqera%20Platform-%234256e7)](https://cloud.seqera.io/launch?pipeline=https://github.com/nobias-fht/denoisesegment-nf-demo)\n\n## Introduction\n\n**nobias-fht/denoisesegment** is an image-analysis pipeline that denoises TIFF microscopy images and then produces instance segmentations of cells. It trains a self-supervised [Noise2Void (N2V)](https://careamics.github.io/) model with CAREamics on the supplied images, applies the trained model to those images, and passes each denoised TIFF to [Cellpose](https://www.cellpose.org/) to generate labelled segmentation masks.\n\n```mermaid\nflowchart LR\n    images[/TIFF image or directory/]:::input\n    val[/Optional validation image or directory/]:::input\n    config_params[/Axes, patch size, batch size<br/>and optional N2V settings/]:::input\n    cellpose_params[/Optional Cellpose settings/]:::input\n\n    subgraph n2v[IMAGE_TRAIN_PREDICT_N2V_CAREAMICS subworkflow]\n        config[CAREAMICS_CONFIGN2V]\n        subgraph train_predict[IMAGE_TRAIN_PREDICT_CAREAMICS subworkflow]\n            train[CAREAMICS_TRAIN]\n            predict[CAREAMICS_PREDICT]\n        end\n        config -->|careamics.yaml| train\n        train -->|selected checkpoint| predict\n    end\n\n    config_params --> config\n    images -->|training data| train\n    val -.->|validation data| train\n    images -->|prediction data| predict\n    train --> checkpoints[(Model checkpoints)]:::output\n    train --> metrics[(Training metrics)]:::output\n    predict --> denoised[(Denoised TIFF images)]:::output\n    denoised --> cellpose[CELLPOSE]\n    cellpose_params --> cellpose\n    cellpose --> masks[(Labelled mask TIFFs)]:::output\n\n    classDef input fill:#fff4dd,stroke:#d89b29,color:#111;\n    classDef output fill:#e8f5e9,stroke:#43a047,color:#111;\n```\n\nThe default analysis steps are:\n\n1. Create an N2V configuration from the required CAREamics parameters.\n2. Train CAREamics on the input TIFF data, optionally using separate validation data.\n3. Select the checkpoint recorded by CAREamics and use it to denoise the input data.\n4. Run Cellpose independently on each denoised image and publish the labelled masks.\n\nThe main inputs and outputs are described in more detail in the [usage](docs/usage.md) and [output](docs/output.md) documentation.\n\n## Usage\n\n> [!NOTE]\n> If you are new to Nextflow and nf-core, please refer to the [nf-core environment setup documentation](https://nf-co.re/docs/get_started/environment_setup/overview) before running the workflow.\n\nProvide `--input` as either one TIFF file or a directory containing TIFF images. You must also describe the image axes and choose the spatial patch size and batch size used by CAREamics. For example:\n\n```bash\nnextflow run nobias-fht/denoisesegment-nf-demo \\\n   -profile <docker/singularity/.../institute> \\\n   --input path/to/images \\\n   --outdir <OUTDIR> \\\n   --careamics_axes CYX \\\n   --careamics_patch_size \"64 64\" \\\n   --careamics_batch_size 64 \\\n   --careamics_n_channels 2\n```\n\nYou can also use the nf-core launcher to more easily select parameters with:\n\n```bash\nnf-core pipelines launch nobias-fht/denoisesegment-nf-demo\n```\n\n> [!WARNING]\n> Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/running/run-pipelines#using-parameter-files).\n\n## Example data\n\nExample data is available using the download script in [this GitHub gist](https://gist.github.com/melisande-c/bc2d3abe95eb8e66725e03e22e31eec0).\n\nUsing `uv`, this can be run directly from GitHub with:\n\n```bash\nuv run https://gist.githubusercontent.com/melisande-c/bc2d3abe95eb8e66725e03e22e31eec0/raw/919580897df22b44da6663173dca15ab55b979a8/download_example_jump.py\n```\n\nThis downloads 10 two-channel images to `./data/example-jump` in the directory from which the script is run. The images have `CYX` axes, so `--careamics_n_channels 2` is required. A patch size of `64 64`, a batch size of `64`, and 20 training epochs are suggested for this small demonstration dataset:\n\n```bash\nnextflow run nobias-fht/denoisesegment-nf-demo \\\n   -profile docker \\\n   --input ./data/example-jump \\\n   --outdir ./results \\\n   --careamics_axes CYX \\\n   --careamics_n_channels 2 \\\n   --careamics_patch_size \"64 64\" \\\n   --careamics_batch_size 64 \\\n   --careamics_num_epochs 20\n```\n\nSee the [usage documentation](docs/usage.md) for parameter-file and GPU-profile examples.\n\n## Credits\n\nnobias-fht/denoisesegment was originally written by Melisande Croft.\n\n## Contributions and Support\n\nIf you would like to contribute to this pipeline, please see the [contributing guidelines](docs/CONTRIBUTING.md).\n\n## Citations\n\nTo cite this pipeline, use the metadata in [`CITATION.cff`](CITATION.cff). Please also cite the software used in your analysis.\n\nAn extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.\n\nThis pipeline uses code and infrastructure developed and maintained by the [nf-core](https://nf-co.re) community, reused here under the [MIT license](https://github.com/nf-core/tools/blob/main/LICENSE).\n\n> **The nf-core framework for community-curated bioinformatics pipelines.**\n>\n> Philip Ewels, Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Alneberg, Andreas Wilm, Maxime Ulysse Garcia, Paolo Di Tommaso & Sven Nahnsen.\n>\n> _Nat Biotechnol._ 2020 Feb 13. doi: [10.1038/s41587-020-0439-x](https://dx.doi.org/10.1038/s41587-020-0439-x).\n",
             "hasPart": [
                 {
                     "@id": "main.nf"
-                },
-                {
-                    "@id": "assets/"
                 },
                 {
                     "@id": "conf/"
                 },
                 {
                     "@id": "docs/"
+                },
+                {
+                    "@id": "modules/"
+                },
+                {
+                    "@id": "modules/nf-core/"
                 },
                 {
                     "@id": "workflows/"
@@ -74,14 +77,14 @@
                     "@id": ".prettierignore"
                 }
             ],
-            "isBasedOn": "https://github.com/nobias-fht/denoisesegment",
+            "isBasedOn": "https://github.com/nobias-fht/denoisesegment-nf-demo",
             "license": "MIT",
             "mainEntity": {
                 "@id": "main.nf"
             },
             "mentions": [
                 {
-                    "@id": "#7ff58983-953e-43ec-868c-d59b548f32ef"
+                    "@id": "#4df7df71-a652-4351-a2fe-789161f298de"
                 }
             ],
             "name": "nobias-fht/denoisesegment"
@@ -103,13 +106,13 @@
                 "SoftwareSourceCode",
                 "ComputationalWorkflow"
             ],
-            "contributor": [
+            "author": [
                 {
                     "@id": "https://orcid.org/0009-0004-8184-683X"
                 }
             ],
             "dateCreated": "",
-            "dateModified": "2026-11-02T15:10:14Z",
+            "dateModified": "2026-11-04T16:54:06Z",
             "dct:conformsTo": "https://bioschemas.org/profiles/ComputationalWorkflow/1.0-RELEASE/",
             "keywords": [
                 "nf-core",
@@ -117,6 +120,11 @@
             ],
             "license": [
                 "MIT"
+            ],
+            "maintainer": [
+                {
+                    "@id": "https://orcid.org/0009-0004-8184-683X"
+                }
             ],
             "name": [
                 "nobias-fht/denoisesegment"
@@ -128,11 +136,11 @@
                 "@id": "https://nf-co.re/"
             },
             "url": [
-                "https://github.com/nobias-fht/denoisesegment",
-                "https://nf-co.re/nobias-fht/denoisesegment/dev/"
+                "https://github.com/nobias-fht/denoisesegment-nf-demo",
+                "https://nf-co.re/nobias-fht/denoisesegment/1.0.0/"
             ],
             "version": [
-                "1.0.0dev"
+                "1.0.0"
             ]
         },
         {
@@ -157,11 +165,11 @@
             "version": "1.1"
         },
         {
-            "@id": "#7ff58983-953e-43ec-868c-d59b548f32ef",
+            "@id": "#4df7df71-a652-4351-a2fe-789161f298de",
             "@type": "TestSuite",
             "instance": [
                 {
-                    "@id": "#e4278dcc-ad99-45b4-ba8f-a37b1b54cfa7"
+                    "@id": "#999a03a0-12e2-46da-b2ec-448121209231"
                 }
             ],
             "mainEntity": {
@@ -179,10 +187,10 @@
             "version": "0.2"
         },
         {
-            "@id": "#e4278dcc-ad99-45b4-ba8f-a37b1b54cfa7",
+            "@id": "#999a03a0-12e2-46da-b2ec-448121209231",
             "@type": "TestInstance",
             "name": "GitHub Actions workflow for testing nobias-fht/denoisesegment",
-            "resource": "repos/nobias-fht/denoisesegment/actions/workflows/nf-test.yml",
+            "resource": "repos/nobias-fht/denoisesegment-nf-demo/actions/workflows/nf-test.yml",
             "runsOn": {
                 "@id": "https://w3id.org/ro/terms/test#GithubService"
             },
@@ -197,11 +205,6 @@
             }
         },
         {
-            "@id": "assets/",
-            "@type": "Dataset",
-            "description": "Additional files"
-        },
-        {
             "@id": "conf/",
             "@type": "Dataset",
             "description": "Configuration files"
@@ -210,6 +213,16 @@
             "@id": "docs/",
             "@type": "Dataset",
             "description": "Markdown files for documenting the pipeline"
+        },
+        {
+            "@id": "modules/",
+            "@type": "Dataset",
+            "description": "Modules used by the pipeline"
+        },
+        {
+            "@id": "modules/nf-core/",
+            "@type": "Dataset",
+            "description": "nf-core modules"
         },
         {
             "@id": "workflows/",
@@ -290,7 +303,8 @@
         {
             "@id": "https://orcid.org/0009-0004-8184-683X",
             "@type": "Person",
-            "name": "Melisande Croft"
+            "name": "Melisande Croft",
+            "url": "https://github.com/melisande-c"
         }
     ]
 }
