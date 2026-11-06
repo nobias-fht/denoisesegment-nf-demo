@@ -3,9 +3,7 @@
 IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-include { paramsSummaryMap                  } from 'plugin/nf-schema'
 include { softwareVersionsToYAML            } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText            } from '../subworkflows/local/utils_nfcore_denoisesegment_pipeline'
 include { IMAGE_TRAIN_PREDICT_N2V_CAREAMICS } from '../subworkflows/careamics/image_train_predict_n2v_careamics/main'
 include { CELLPOSE                          } from '../modules/nf-core/cellpose/main'
 
@@ -50,7 +48,8 @@ workflow DENOISESEGMENT {
     IMAGE_TRAIN_PREDICT_N2V_CAREAMICS(ch_config, ch_training, ch_prediction_data)
 
     ch_n2v_preds = IMAGE_TRAIN_PREDICT_N2V_CAREAMICS.out.predictions.flatMap { careamics_meta, files ->
-        files.collect { file ->
+        def predictions = files instanceof List ? files : [files]
+        predictions.collect { file ->
             tuple(
                 careamics_meta + [id: "${file.baseName}"],
                 file

@@ -20,8 +20,8 @@ This page describes the recommended nf-core way to contribute to both nobias-fht
 To contribute code to any nf-core pipeline:
 
 - [ ] Ensure you have Nextflow, nf-core tools, and nf-test installed. See the [nf-core/tools repository](https://github.com/nf-core/tools) for instructions.
-- [ ] Check whether a GitHub [issue](https://github.com/nobias-fht/denoisesegment/issues) about your idea already exists. If an issue does not exist, create one so that others are aware you are working on it.
-- [ ] [Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the [nobias-fht/denoisesegment repository](https://github.com/nobias-fht/denoisesegment) to your GitHub account.
+- [ ] Check whether a GitHub [issue](https://github.com/nobias-fht/denoisesegment-nf-demo/issues) about your idea already exists. If an issue does not exist, create one so that others are aware you are working on it.
+- [ ] [Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the [nobias-fht/denoisesegment repository](https://github.com/nobias-fht/denoisesegment-nf-demo) to your GitHub account.
 - [ ] Create a branch on your forked repository and make your changes following [pipeline conventions](#pipeline-contribution-conventions) (if applicable).
 - [ ] To fix major bugs, name your branch `patch` and follow the [patch release](#patch-release) process.
 - [ ] Update relevant documentation within the `docs/` folder, use nf-core/tools to update `nextflow_schema.json`, and update `CITATIONS.md`.
@@ -39,7 +39,7 @@ You can contribute to nobias-fht/denoisesegment without installing a local devel
 Most nf-core repositories include a devcontainer configuration, which creates a GitHub Codespaces environment specifically for Nextflow development.
 The environment includes pre-installed nf-core tools, Nextflow, and a few other helpful utilities via a Docker container.
 
-To get started, open the repository in [Codespaces](https://github.com/nobias-fht/denoisesegment/codespaces).
+To get started, open the repository in [Codespaces](https://github.com/nobias-fht/denoisesegment-nf-demo/codespaces).
 
 ### Testing
 
@@ -159,4 +159,8 @@ If you update images or graphics, follow the nf-core [style guidelines](https://
 
 ## Pipeline specific contribution guidelines
 
-<!-- TODO nf-core: Add any pipeline specific contribution guidelines here, such as coding styles, procedures, checklists etc. -->
+- Keep pipeline parameters in `nextflow_schema.json` and document user-visible behaviour in `docs/usage.md` or `docs/output.md`.
+- Use TIFF microscopy data for pipeline and component tests. The pipeline accepts a TIFF file or directory directly; it does not use a samplesheet.
+- Add or update nf-test coverage when changing a module, subworkflow, or published output.
+- Keep tool-specific command construction inside the relevant module or its `conf/modules.config` selector.
+- Before opening a pull request, run the pre-commit hooks and the smallest relevant nf-test target. Use the bundled `test` profile for an end-to-end check when workflow wiring changes.

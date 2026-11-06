@@ -1,23 +1,23 @@
 {
     "name": "nobias-fht/denoisesegment",
-    "homePage": "https://github.com/nobias-fht/denoisesegment",
+    "homePage": "https://github.com/nobias-fht/denoisesegment-nf-demo",
     "repos": {
         "https://github.com/CAREamics/CAREamics_nextflow.git": {
             "modules": {
                 "careamics": {
                     "careamics/confign2v": {
                         "branch": "main",
-                        "git_sha": "db7c68ec814c1a46a721b54f89371a7a77628083",
+                        "git_sha": "b06a84e1353fa395405745a4078e771f812b639d",
                         "installed_by": ["image_train_predict_n2v_careamics"]
                     },
                     "careamics/predict": {
                         "branch": "main",
-                        "git_sha": "db7c68ec814c1a46a721b54f89371a7a77628083",
+                        "git_sha": "b06a84e1353fa395405745a4078e771f812b639d",
                         "installed_by": ["image_train_predict_careamics"]
                     },
                     "careamics/train": {
                         "branch": "main",
-                        "git_sha": "db7c68ec814c1a46a721b54f89371a7a77628083",
+                        "git_sha": "b06a84e1353fa395405745a4078e771f812b639d",
                         "installed_by": ["image_train_predict_careamics"]
                     }
                 }
@@ -26,12 +26,12 @@
                 "careamics": {
                     "image_train_predict_careamics": {
                         "branch": "main",
-                        "git_sha": "db7c68ec814c1a46a721b54f89371a7a77628083",
+                        "git_sha": "b06a84e1353fa395405745a4078e771f812b639d",
                         "installed_by": ["image_train_predict_n2v_careamics"]
                     },
                     "image_train_predict_n2v_careamics": {
                         "branch": "main",
-                        "git_sha": "db7c68ec814c1a46a721b54f89371a7a77628083",
+                        "git_sha": "b06a84e1353fa395405745a4078e771f812b639d",
                         "installed_by": ["subworkflows"]
                     }
                 }
